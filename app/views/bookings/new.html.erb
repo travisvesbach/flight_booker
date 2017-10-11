@@ -1,0 +1,42 @@
+<h1>New Booking</h1>
+
+<div class="flight_info">
+	<h3>Flight Information</h3>
+	<table>
+		<tr>
+			<td><strong>Flight Number: </strong></td>
+			<td><%= @flight.number %></td>
+		</tr>
+		<tr>
+			<td><strong>Departing: </strong></td>
+			<td><%= @flight.from_airport.airport_info %></td>
+		</tr>
+		<tr>
+			<td><strong>Destination: </strong></td>
+			<td><%= @flight.to_airport.airport_info %></td>
+		</tr>
+		<tr>
+			<td><strong>Departure time: </strong></td>
+			<td><%= @flight.departure.strftime("%A, %B %d, %Y at %l:%M %p") %></td>
+		</tr>
+	</table>
+</div>
+
+<div class="passenger_form">
+	<h3>Passenger Information</h3>
+	<%= form_for(@booking) do |f| %>
+		<%= f.fields_for :passengers do |p| %>
+			<div class="passenger_input">
+				<%= p.label :name %>
+				<%= p.text_field :name, class: "input" %>
+				<br>
+				<%= p.label :email %>
+				<%= p.text_field :email, class: "input" %>
+				<br>
+			</div>	
+		<% end %>
+		<%= f.hidden_field :flight_id, value: @flight.id %>
+		<%= f.hidden_field :passengers, value: @recieved_info[:passengers] %>
+		<%= f.submit "Book flight", class: "button" %>
+	<% end %>
+</div>

@@ -9,6 +9,14 @@
   </head>
 
   <body>
-    <%= yield %>
+  	<div class="header">
+	  	<%= link_to "Search", root_path, class: "link" %>
+  	</div>
+  	<% flash.each do |key, value| %>
+  		<%= content_tag :div, value, class: "flash" %>
+	<% end %>
+	<div class="content">
+	    <%= yield %>
+	</div>
   </body>
 </html>

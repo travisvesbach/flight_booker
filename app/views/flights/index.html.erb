@@ -1,0 +1,63 @@
+<h1>Flight Booking</h1>
+<div class="flight_search">
+	<h3>Search</h3>
+	<%= form_for(:search, method: :get) do |f| %>
+		<table>
+			<tr>
+				<td><%= f.label :departing %></td>
+				<td><%= f.select(:departing, @airport_info) %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :arriving %></td>
+				<td><%= f.select(:arriving, @airport_info) %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :passengers %></td>
+				<td><%= f.select(:passengers, @passengers) %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :date %></td>
+				<td><%= f.select(:date, @date) %></td>
+			</tr>
+		</table>
+		<br>
+		<div class="search_button">
+			<%= f.submit "Seach for flights", class: "button" %>
+		</div>
+	<% end %>
+</div>
+
+<% if !@flights.nil? && @flights.count > 0 %>
+	<div class="search_results_box">
+		<h3>Available Flights</h3>
+		<%= form_for(:choose_flight, method: :get, :url => url_for(:controller => 'bookings', :action => 'new')) do |f| %>
+			<%= f.hidden_field :passengers, value: @search_results[:passengers] %>
+			<% @flights.each do |flight_info| %>
+				<div class="search_result">
+					<%= f.radio_button(:flight_id, flight_info.id, checked: true, class: "radio_button") %>
+					<div class="flight_info">
+						<table>
+							<tr>
+								<td><strong>Flight Number: </strong></td>
+								<td><%= flight_info.number %></td>
+							</tr>
+							<tr>
+								<td><strong>From: </strong></td>
+								<td><%= flight_info.from_airport.airport_info %></td>
+							</tr>
+							<tr>
+								<td><strong>To: </strong></td>
+								<td><%= flight_info.to_airport.airport_info %></td>
+							</tr>
+							<tr>
+								<td><strong>When: </strong></td>
+								<td><%= flight_info.departure.strftime("%A, %B %d, %Y at %l:%M %p") %></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			<% end %>
+			<%= f.submit "Continue to passenger information", class: "button" %> 
+		<% end %>
+	</div>
+<% end %>
