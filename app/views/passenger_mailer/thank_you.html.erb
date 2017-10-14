@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Thank you, <%= @passenger.name %>!</h1>
+
+	<h3>Here are the details for your flight!</h3>
+	<table>
+		<tr>
+			<td><strong>Flight Number: </strong></td>
+			<td><%= @passenger.booking.flight.number %></td>
+		</tr>
+		<tr>	
+			<td><strong>From: </strong></td>
+			<td><%= @passenger.booking.flight.from_airport.airport_info %></td>
+		</tr>
+		<tr>
+			<td><strong>To: </strong></td>
+			<td><%= @passenger.booking.flight.to_airport.airport_info %></td>
+		</tr>
+		<tr>
+			<td><strong>When: </strong></td>
+			<td><%= @passenger.booking.flight.departure.strftime("%A, %B %d, %Y at %l:%M %p") %></td>
+		</tr>
+	</table>
+
+	<h3>Passengers</h3>
+	<table>
+		<tr>
+			<td><strong>Name </strong> </td>
+		</tr> 
+		<% @passenger.booking.passengers.each do |passenger| %>
+			<tr>
+				<td><%= passenger.name %></td>
+			</tr>
+		<% end %>
+	</table>
+
+	<h3>Thanks again! We hope you have a wonderful flight!</h3>
+
+</body>
+</html>

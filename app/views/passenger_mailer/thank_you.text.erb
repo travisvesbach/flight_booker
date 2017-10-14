@@ -1,0 +1,16 @@
+Thank you, <%= @passenger.name %>!
+
+Here are the details for your flight!
+
+Flight Number: <%= @passenger.booking.flight.number %>
+From:          <%= @passenger.booking.flight.from_airport.airport_info %>
+To:            <%= @passenger.booking.flight.to_airport.airport_info %>
+When:          <%= @passenger.booking.flight.departure.strftime("%A, %B %d, %Y at %l:%M %p") %>
+
+Passengers:
+
+<% @passenger.booking.passengers.each do |passenger| %>
+Name: <%= passenger.name %>
+<% end %>
+
+Thanks again! We hope you have a wonderful flight!

@@ -6,9 +6,7 @@ class FlightsController < ApplicationController
 
   		if !params[:search].nil?
   			@search_results = search_params
-  			puts @search_results
   			@flights = Flight.search(@search_results[:departing], @search_results[:arriving], @search_results[:date])
-  			puts "FLIGHTS #{@flights} "
   		end
   	end
 
